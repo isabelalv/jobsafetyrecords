@@ -13,14 +13,13 @@ mongoose.connect('mongodb://localhost/JSAdb');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
+var routes = require('./api/routes/jsaRoutes'); //importing routes
+routes(app); //register the routes
+
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
 });
-
-
-var routes = require('./api/routes/jsaRoutes'); //importing route
-routes(app); //register the route
-
 
 app.listen(port);
 
