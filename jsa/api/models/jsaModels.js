@@ -65,15 +65,15 @@ var JSA = new Schema({
         type: String,
         required: 'Activity name is required'
     },
-    num_views: {
-        type: Number,
-        required: 'Number of views is required',
-        default: 0
-    },
-    steps: {
-        type: [Step],
-        required: 'Set of steps is required'
-    }
+    // num_views: {
+    //     type: Number,
+    //     required: 'Number of views is required',
+    //     default: 0
+    // },
+    // steps: {
+    //     type: [Step],
+    //     required: 'Set of steps is required'
+    // }
 });
 
 module.exports = mongoose.model('JSA', JSA);

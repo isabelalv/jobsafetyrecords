@@ -1,0 +1,348 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>JSA Library</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload" onload="loadSections();">
+
+		<!-- Page wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<span class="logo"><a href="index.html">Job Safety Analysis Library</a></span>
+					</header>
+
+					<section class="wrapper" >
+						<div class="inner" id="recordContent" >
+							<div class="content">
+								<h3>New JSA Report</h3>
+
+								<form method="post" action="#">
+									<div class="row gtr-uniform" id="activity">
+										<div class="col-12 col-12-xsmall">
+											<input type="text" value="" placeholder="Activity Description" />
+										</div>
+
+										<div class="col-12">
+											<hr/>
+										</div>
+
+										<div class="col-12">
+											<ul class="actions">
+												<li><a onclick="nextSection('activity')" class="button">Continue</a></li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="row gtr-uniform" id="steps">
+										<div id="stepDescriptions">
+											<div class="col-12 col-12-xsmall">
+												<input type="text" value="" placeholder="Step Description" />
+											</div>	
+										</div>
+										
+										<div class="col-12" id="stepButtons">
+											<ul class="actions">
+												<li><a onclick="addStep();" class="button">Add Step</a></li>
+												<li><a onclick="removeStep();" class="button">Remove Step</a></li>
+											</ul>
+										</div>
+
+										<div class="col-12">
+											<hr/>
+										</div>
+
+										<div class="col-12">
+											<ul class="actions">
+												<li><a onclick="nextSection('steps')" class="button">Continue</a></li>
+											</ul>
+										</div>
+									</div>
+
+									<div class="row gtr-uniform" id="hazards">
+										<div class="col-12 col-12-xsmall">
+											<h5>1. Step description from before</h5>
+
+											<div id="step1">
+												<table class="alt">
+													<tbody>
+														<tr>
+															<td>Hazard Description</td>
+															<td><input type="text" value="" placeholder="Hazard Description" /></td>
+														</tr>
+														<tr>
+															<td>Environment</td>
+															<td><input type="text" value="" placeholder="Environment" /></td>
+														</tr>
+														<tr>
+															<td>Exposure</td>
+															<td><input type="text" value="" placeholder="Exposure" /></td>
+														</tr>
+														<tr>
+															<td>Trigger</td>
+															<td><input type="text" value="" placeholder="Trigger" /></td>
+														</tr>
+														<tr>
+															<td>Consequences</td>
+															<td><input type="text" value="" placeholder="Consequences" /></td>
+														</tr>
+														<tr>
+															<td>Likelihood</td>
+															<td>
+																<div class="col-4 col-12-small">
+																	<input type="radio" id="not-likely" name="likelihood" style="display: none;">
+																	<label for="not-likely">Not likely</label>
+																</div>
+																<div class="col-4 col-12-small">
+																	<input type="radio" id="somewhat-likely" name="likelihood" style="display: none;">
+																	<label for="somewhat-likely">Somewhat likely</label>
+																</div>
+																<div class="col-4 col-12-small">
+																	<input type="radio" id="very-likely" name="likelihood" style="display: none;">
+																	<label for="very-likely">Very likely</label>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td>Risk Level</td>
+															<td>
+																<div class="col-4 col-12-small">
+																	<input type="radio" id="almost-no-risk" name="risk" style="display: none;">
+																	<label for="almost-no-risk">Almost no risk</label>
+																</div>
+																<div class="col-4 col-12-small">
+																	<input type="radio" id="manageable-risk" name="risk" style="display: none;">
+																	<label for="manageable-risk">Manageable risk</label>
+																</div>
+																<div class="col-4 col-12-small">
+																	<input type="radio" id="extreme-risk" name="risk" style="display: none;">
+																	<label for="extreme-risk">Extreme risk</label>
+																</div>
+															</td>
+														</tr>
+														<tr>
+															<td>Controls</td>
+															<td>
+																<div id="controlInputs">
+																	<input type="text" value="" placeholder="Control Description" />
+																</div>
+																<ul class="actions">
+																	<li><a onclick="addControl();" class="button">Add Control</a></li>
+																	<li><a onclick="removeControl();" class="button">Remove Control</a></li>
+																</ul>
+															</td>
+														</tr>
+													</tbody>
+												</table>	
+											</div>
+											
+											<ul class="actions">
+												<li><a onclick="addHazard('step1');" class="button">Add Hazard</a></li>
+												<li><a onclick="removeHazard('step1');" class="button">Remove Hazard</a></li>
+											</ul>
+										</div>
+
+										<div class="col-12 col-12-xsmall">
+											<h5>2. Step description from before</h5>
+
+											<table class="alt">
+												<tbody>
+													<tr>
+														<td>Hazard Description</td>
+														<td><input type="text" value="" placeholder="Hazard Description" /></td>
+													</tr>
+													<tr>
+														<td>Environment</td>
+														<td><input type="text" value="" placeholder="Environment" /></td>
+													</tr>
+													<tr>
+														<td>Exposure</td>
+														<td><input type="text" value="" placeholder="Exposure" /></td>
+													</tr>
+													<tr>
+														<td>Trigger</td>
+														<td><input type="text" value="" placeholder="Trigger" /></td>
+													</tr>
+													<tr>
+														<td>Consequences</td>
+														<td><input type="text" value="" placeholder="Consequences" /></td>
+													</tr>
+													<tr>
+														<td>Likelihood</td>
+														<td>
+															<div class="col-4 col-12-small">
+																<input type="radio" id="not-likely" name="likelihood" style="display: none;">
+																<label for="not-likely">Not likely</label>
+															</div>
+															<div class="col-4 col-12-small">
+																<input type="radio" id="somewhat-likely" name="likelihood" style="display: none;">
+																<label for="somewhat-likely">Somewhat likely</label>
+															</div>
+															<div class="col-4 col-12-small">
+																<input type="radio" id="very-likely" name="likelihood" style="display: none;">
+																<label for="very-likely">Very likely</label>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>Risk Level</td>
+														<td>
+															<div class="col-4 col-12-small">
+																<input type="radio" id="almost-no-risk" name="risk" style="display: none;">
+																<label for="almost-no-risk">Almost no risk</label>
+															</div>
+															<div class="col-4 col-12-small">
+																<input type="radio" id="manageable-risk" name="risk" style="display: none;">
+																<label for="manageable-risk">Manageable risk</label>
+															</div>
+															<div class="col-4 col-12-small">
+																<input type="radio" id="extreme-risk" name="risk" style="display: none;">
+																<label for="extreme-risk">Extreme risk</label>
+															</div>
+														</td>
+													</tr>
+													<tr>
+														<td>Controls</td>
+														<td>
+															<div id="controlInputs">
+																<input type="text" value="" placeholder="Control Description" />
+															</div>
+															<ul class="actions">
+																<li><a onclick="addControl();" class="button">Add Control</a></li>
+																<li><a onclick="removeControl();" class="button">Remove Control</a></li>
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>	
+											
+											<ul class="actions">
+												<li><a onclick="addHazard('step2');" class="button">Add Hazard</a></li>
+												<li><a onclick="removeHazard('step2');" class="button">Remove Hazard</a></li>
+											</ul>
+										</div>
+
+										
+
+										<div class="col-12">
+											<hr/>
+										</div>
+
+										<div class="col-12">
+											<ul class="actions">
+												<li><a href="#" class="button">Submit</a></li>
+											</ul>
+										</div>
+									</div>
+
+								</form>
+								
+							</div>
+						</div>
+					</section>
+
+				<!-- Copyright -->
+					<section class="wrapper style2 copyright">
+						<div class="inner">
+							&copy; JSA Library. All rights reserved.
+						</div>
+					</section>
+
+			</div>
+
+			<!-- ITEMS TO CLONE -->
+			<div style="display: none;">
+				<div class="col-12 col-12-xsmall" id="stepToClone">
+					<input type="text" value="" placeholder="Step Description" style="margin-top: 1%;"/>
+				</div>	
+
+				<input id="controlToClone" type="text" value="" placeholder="Control Description" />
+
+				<table id="hazardToClone" class="alt">
+					<tbody>
+						<tr>
+							<td>Hazard Description</td>
+							<td><input type="text" value="" placeholder="Hazard Description" /></td>
+						</tr>
+						<tr>
+							<td>Environment</td>
+							<td><input type="text" value="" placeholder="Environment" /></td>
+						</tr>
+						<tr>
+							<td>Exposure</td>
+							<td><input type="text" value="" placeholder="Exposure" /></td>
+						</tr>
+						<tr>
+							<td>Trigger</td>
+							<td><input type="text" value="" placeholder="Trigger" /></td>
+						</tr>
+						<tr>
+							<td>Consequences</td>
+							<td><input type="text" value="" placeholder="Consequences" /></td>
+						</tr>
+						<tr>
+							<td>Likelihood</td>
+							<td>
+								<div class="col-4 col-12-small">
+									<input class="not-likely-to-clone" type="radio" id="not-likely-to-clone" name="likelihood" style="display: none;">
+									<label for="not-likely">Not likely</label>
+								</div>
+								<div class="col-4 col-12-small">
+									<input type="radio" id="somewhat-likely-to-clone" name="likelihood" style="display: none;">
+									<label for="somewhat-likely">Somewhat likely</label>
+								</div>
+								<div class="col-4 col-12-small">
+									<input type="radio" id="very-likely-to-clone" name="likelihood" style="display: none;">
+									<label for="very-likely">Very likely</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Risk Level</td>
+							<td>
+								<div class="col-4 col-12-small">
+									<input type="radio" id="almost-no-risk" name="risk" style="display: none;">
+									<label for="almost-no-risk">Almost no risk</label>
+								</div>
+								<div class="col-4 col-12-small">
+									<input type="radio" id="manageable-risk" name="risk" style="display: none;">
+									<label for="manageable-risk">Manageable risk</label>
+								</div>
+								<div class="col-4 col-12-small">
+									<input type="radio" id="extreme-risk" name="risk" style="display: none;">
+									<label for="extreme-risk">Extreme risk</label>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>Controls</td>
+							<td>
+								<div id="controlInputs">
+									<input type="text" value="" placeholder="Control Description" />
+								</div>
+								<ul class="actions">
+									<li><a onclick="addControl();" class="button">Add Control</a></li>
+									<li><a onclick="removeControl();" class="button">Remove Control</a></li>
+								</ul>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		<!-- Scripts -->
+			<script src="newrecord.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
