@@ -1,14 +1,20 @@
 const app = new Vue({
     el: '#recordContent',
     data: {
-        // result: "",
         responseAvailable: false,
         steps: [],
         recordTitle: '',
     },
     beforeCreate: function() {
         this.responseAvailable = false;
-            fetch("http://localhost:3000/jsa/5f37f84a3f046658184dbe31", {
+        var record_id = "";
+        if (window.location.toString().includes("id=")){
+            record_id = window.location.toString().split("id=")[1];
+        }else{
+            alert("Invalid record");
+            window.location.href = 'home.html';
+        }
+            fetch("http://localhost:3000/jsa/" + record_id, {
                 "method": "GET",
                 "headers": {
                     "Content-Type": "application/x-www-form-urlencoded",
@@ -22,6 +28,7 @@ const app = new Vue({
                 }                
             })
             .then(response => {
+                
                 this.responseAvailable = true;
                 this.steps = response.steps;
                 this.recordTitle = response.activity;

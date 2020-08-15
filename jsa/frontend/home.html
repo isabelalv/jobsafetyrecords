@@ -27,38 +27,24 @@
 						</div>
 					</section>
 
-					<section class="wrapper">
-						<div class="inner">
-							<div class="content">
-								<header>
-									<h4>0001 - Installing gas stove</h4>
-								</header>
-								<ol>
-									<li><p>Unhook the old gas stove</p></li>
-									<li><p>Prepare the new stove</p></li>
-									<li><p>Hook up the new stove</p></li>
-								</ol>
-								<p><a href="#">View details</a></p>
-								<hr>
+					<div  id="recordList">
+						<section class="wrapper" v-for="record in recordList">
+							<div class="inner">
+								<div class="content">
+									<header>
+										<h4>{{record.activity}}</h4>
+									</header>
+									<ol>
+										<li v-for="step in record.steps"><p>{{step.description}}</p></li>
+									</ol>
+									<p><a v-bind:href="'record.html?id=' + record._id">View details</a></p>
+									<!-- href="http://localhost:3000/record.html?id=#{{step.description}}" -->
+									<hr>
+								</div>
 							</div>
-						</div>
-					</section>
-
-					<section class="wrapper">
-						<div class="inner">
-							<div class="content">
-								<header>
-									<h4>0002 - Removing gas stove</h4>
-								</header>
-								<ol>
-									<li><p>Unhook the old gas stove</p></li>									
-									<li><p>Package old stove to take it away</p></li>									
-								</ol>
-								<p><a href="#">View details</a></p>
-								<hr>
-							</div>
-						</div>
-					</section>
+						</section>
+					</div  >
+					
 
 				<!-- Copyright -->
 					<section class="wrapper style2 copyright">

@@ -4,10 +4,10 @@ var mongoose = require('mongoose'),
   JSA = mongoose.model('JSA');
 
 exports.list_all_records = function(req, res) {
-  JSA.find({}, function(err, task) {
+  JSA.find({}, {activity:1, "steps.description":1}, function(err, records) {
     if (err)
       res.send(err);
-    res.json(task);
+    res.json(records);
   });
 };
 

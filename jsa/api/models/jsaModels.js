@@ -45,10 +45,6 @@ var Hazard = new Schema({
 module.exports = mongoose.model('Hazard', Hazard);
 
 var Step = new Schema({
-    step_number: {
-        type: Number,
-        required: 'Step number is required'
-    },
     description: {
         type: String,
         required: 'Step description is required'
