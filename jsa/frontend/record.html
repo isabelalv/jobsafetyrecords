@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>JSA Library</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<span class="logo"><a href="index.html">Job Safety Analysis Library</a></span>
+					</header>
+
+					<section class="wrapper" >
+						<div class="inner" id="recordContent" >
+							<div class="content">
+								<header>
+									<h2>{{ recordTitle }}</h2>
+								</header>
+								<div v-for="step in steps">
+									<h4 >{{step.step_number}}. {{step.description}}</h4>
+									<div v-for="hazard in step.hazards">
+										<table class="alt">
+											<tbody>
+												<tr>
+													<td><strong>Hazard Description</strong></td>
+													<td><strong>{{hazard.title}}</strong></td>
+												</tr>
+												<tr>
+													<td>Environment</td>
+													<td>{{hazard.environment}}</td>
+												</tr>
+												<tr>
+													<td>Exposure</td>
+													<td>{{hazard.exposure}}</td>
+												</tr>
+												<tr>
+													<td>Trigger</td>
+													<td>{{hazard.trigger}}</td>
+												</tr>
+												<tr>
+													<td>Consequences</td>
+													<td>{{hazard.consequences}}</td>
+												</tr>
+												<tr>
+													<td>Likelihood</td>
+													<td>{{hazard.likelihood}}</td>
+												</tr>
+												<tr>
+													<td>Risk Level</td>
+													<td>{{hazard.risk_level}}</td>
+												</tr>
+												<tr>
+													<td>Controls</td>
+													<td>
+														<ul>
+															<li v-for="control in hazard.controls">
+																{{control}}
+															</li>
+														</ul>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+									<hr>
+								</div>
+
+							</div>
+						</div>
+					</section>
+
+				<!-- Copyright -->
+					<section class="wrapper style2 copyright">
+						<div class="inner">
+							&copy; JSA Library. All rights reserved.
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="record.js"></script>
+			
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

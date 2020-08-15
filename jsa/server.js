@@ -4,6 +4,13 @@ var express = require('express'),
   mongoose = require('mongoose'),
   JSA = require('./api/models/jsaModels'), //created model loading here
   bodyParser = require('body-parser');
+
+  // remove after testing!
+  app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
@@ -17,6 +24,9 @@ app.use(bodyParser.json());
 var routes = require('./api/routes/jsaRoutes'); //importing route
 routes(app); //register the route
 
+app.use(function(req, res) {
+  res.status(404).send({url: req.originalUrl + ' not found'})
+});
 
 app.listen(port);
 
