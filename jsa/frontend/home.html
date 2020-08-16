@@ -21,7 +21,7 @@
 						<div class="inner">
 							<div class="content">
 								<ul class="actions">
-									<li><a href="#" class="button">New Record</a></li>
+									<li><a href="newrecord.html" class="button">New Record</a></li>
 								</ul>
 							</div>
 						</div>
@@ -38,7 +38,6 @@
 										<li v-for="step in record.steps"><p>{{step.description}}</p></li>
 									</ol>
 									<p><a v-bind:href="'record.html?id=' + record._id">View details</a></p>
-									<!-- href="http://localhost:3000/record.html?id=#{{step.description}}" -->
 									<hr>
 								</div>
 							</div>
