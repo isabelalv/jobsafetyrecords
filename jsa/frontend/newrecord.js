@@ -114,7 +114,7 @@ function saveCurrentHazards(stepIndex){
         hazardToSave.likelihood = document.querySelector("input[name = 'likelihood" + (j+1) + "']:checked").value;
         document.querySelector('input[name = "likelihood' + (j+1) + '"]:checked').checked = false;
 
-        hazardToSave.risk = document.querySelector('input[name = "risk' + (j+1) + '"]:checked').value;
+        hazardToSave.risk_level = document.querySelector('input[name = "risk' + (j+1) + '"]:checked').value;
         document.querySelector('input[name = "risk' + (j+1) + '"]:checked').checked = false;
 
         var controlsToSave = [];
@@ -126,7 +126,7 @@ function saveCurrentHazards(stepIndex){
         }
         hazardToSave.controls = controlsToSave;
         
-        var controlInputs = currentHazard.getElementsByClassName("controlInputs1")[0];
+        var controlInputs = currentHazard.getElementsByClassName("controlInputs"+(j+1))[0];
         var controlToKeep = currentHazard.getElementsByClassName("controlInputs")[0];
         controlToKeep.value = "";
         controlInputs.innerHTML = "";//removes all child nodes
@@ -138,7 +138,6 @@ function saveCurrentHazards(stepIndex){
         document.getElementById("hazard"+x).remove();
     }
     document.getElementById("hazard1").style.display = "none";
-    // alert(JSON.stringify(jsa));
 };
 
 function validateHazards(){
@@ -347,16 +346,6 @@ const app = new Vue({
     methods: {
         submit: function (event) {
             console.log(JSON.stringify(jsa));
-            // const requestOptions = {
-            //     method: "POST",
-            //     headers: { "Content-Type": "application/json" },
-            //     body: jsa
-            // };
-            // fetch("http://localhost:3000/jsas/", requestOptions)
-            //     .then(response => response.json())
-            //     .then(data => (this.recordId = data.id));
-
-            // alert(this.recordId);
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -370,10 +359,19 @@ const app = new Vue({
             };
 
             fetch("http://localhost:3000/jsas", requestOptions)
-            // .then(response => response.text())
-            // .then(result => console.log(result))
-            .then(response => window.location.href = "record.html?id=" + response.id)
-            .catch(error => console.log('error', error));
+            .then(response => { 
+                if(response.ok){
+                    return response.json()    
+                } else{
+                    alert("Server returned " + response.status + " : " + response.statusText);
+                }                
+            })
+            .then(response => {
+                // window.location.href = "record.html?id=" + response._id;
+            })
+            .catch(err => {
+                console.log(err);
+            });
             
         }
     }

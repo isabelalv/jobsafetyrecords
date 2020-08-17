@@ -23,8 +23,8 @@
 								<header>
 									<h2>{{ recordTitle }}</h2>
 								</header>
-								<div v-for="step in steps">
-									<h4 >{{step.step_number}}. {{step.description}}</h4>
+								<div v-for="(step,index) in steps">
+									<h4 >{{index+1}}. {{step.description}}</h4>
 									<div v-for="hazard in step.hazards">
 										<table class="alt">
 											<tbody>
@@ -46,15 +46,15 @@
 												</tr>
 												<tr>
 													<td>Consequences</td>
-													<td>{{hazard.consequences}}</td>
+													<td>{{hazard.consequence}}</td>
 												</tr>
 												<tr>
 													<td>Likelihood</td>
-													<td>{{hazard.likelihood}}</td>
+													<td>{{hazard.likelihood[0]}}</td>
 												</tr>
 												<tr>
 													<td>Risk Level</td>
-													<td>{{hazard.risk_level}}</td>
+													<td>{{hazard.risk_level[0]}}</td>
 												</tr>
 												<tr>
 													<td>Controls</td>
