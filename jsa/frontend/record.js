@@ -30,7 +30,7 @@ const app = new Vue({
                 }                
             })
             .then(response => {
-                
+
                 this.responseAvailable = true;
                 this.steps = response.steps;
                 this.recordTitle = response.activity;

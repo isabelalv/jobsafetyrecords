@@ -22,6 +22,7 @@ mongoose.connect('mongodb://localhost/JSAdb');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+
 var routes = require('./api/routes/jsaRoutes'); //importing route
 routes(app); //register the route
 
