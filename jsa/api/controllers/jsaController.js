@@ -14,7 +14,6 @@ exports.list_all_records = function(req, res) {
   });
 };
 
-
 exports.create_record = function(req, res) {
     var new_record = new JSA(req.body);
     new_record.save(function(err, record) {
@@ -26,8 +25,7 @@ exports.create_record = function(req, res) {
       return
     });
   };
-  
-  
+    
   exports.read_record = function(req, res) {
     JSA.findById(req.params.recordID, function(err, record) {
       if (err){
@@ -39,7 +37,7 @@ exports.create_record = function(req, res) {
     });
   };
   
-  
+  // this endpoint is currently not in use and has not been tested 
   exports.update_record = function(req, res) {
     JSA.findOneAndUpdate({_id: req.params.recordID}, req.body, {new: true}, function(err, record) {
       if (err){
@@ -50,8 +48,7 @@ exports.create_record = function(req, res) {
       return
     });
   };
-  
-  
+    
   exports.delete_record = function(req, res) {
     JSA.remove({
       _id: req.params.recordID

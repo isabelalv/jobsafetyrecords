@@ -6,6 +6,7 @@ const app = new Vue({
     },
     beforeCreate: function() {
         this.responseAvailable = false;
+            // this URL should be changed after local testing 
             fetch("http://localhost:3000/jsas/", {
                 "method": "GET",
                 "headers": {

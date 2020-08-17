@@ -2,6 +2,7 @@ var jsa = {
     activity: "",
     steps: []
 }
+// as a guide, this is the format expected by the database
 // var step = {
 //     description: "",
 //     hazards: []
@@ -16,9 +17,11 @@ var jsa = {
 //     risk_level: "", // enum: ['Almost no risk', 'Manageable risk', 'Extreme risk']
 //     controls: []
 // }
+
 var currentStep = 0;
 var currentNumHazards = 0;
 
+// runs on page load, resets section visibility and jsa record
 function loadSections(){
     document.getElementById("activity").style.display='block';
     document.getElementById("steps").style.display='none';
@@ -30,6 +33,7 @@ function loadSections(){
     }
 };
 
+// based on the current section, moves to the next screen in the form
 function nextSection(currentSection) {
     if(currentSection == "activity"){
         if(document.getElementById("activityInput").value != ""){
@@ -81,7 +85,7 @@ function nextSection(currentSection) {
     }
 };
 
-//this method also clears all fields and resets the hazards div to its original state
+// this method also clears all fields and resets the hazards div to its original state
 function saveCurrentHazards(stepIndex){
     //for each hazard, go through every field and save them to the json object
     for (let j = 0; j < currentNumHazards; j++) {
@@ -117,6 +121,7 @@ function saveCurrentHazards(stepIndex){
         hazardToSave.risk_level = document.querySelector('input[name = "risk' + (j+1) + '"]:checked').value;
         document.querySelector('input[name = "risk' + (j+1) + '"]:checked').checked = false;
 
+        // looping through controls to get their values 
         var controlsToSave = [];
         var currentControls = currentHazard.getElementsByClassName("controlInputs");
         for (let k = 0; k < currentControls.length; k++) {
@@ -126,6 +131,7 @@ function saveCurrentHazards(stepIndex){
         }
         hazardToSave.controls = controlsToSave;
         
+        // resetting controls to only a single empty text box
         var controlInputs = currentHazard.getElementsByClassName("controlInputs"+(j+1))[0];
         var controlToKeep = currentHazard.getElementsByClassName("controlInputs")[0];
         controlToKeep.value = "";
@@ -135,12 +141,15 @@ function saveCurrentHazards(stepIndex){
         jsa.steps[stepIndex].hazards.push(hazardToSave);
     }   
 
+    // remove all but the first hazard table, which should be clear now
     for (let x = 2; x <= currentNumHazards; x++) {
         document.getElementById("hazard"+x).remove();
     }
+    // hide the first hazard table
     document.getElementById("hazard1").style.display = "none";
 };
 
+// verifies that every visible field in the hazards div contains a value
 function validateHazards(){
     //for each hazard, go through every required field and check if they are filled out
     for (let j = 0; j < currentNumHazards; j++) {
@@ -184,6 +193,7 @@ function validateHazards(){
     return true;
 };
 
+// clones the step text box and adds the clone to the screen
 function addStep(){
     var itm = document.getElementById("firstStep");
     var cln = itm.cloneNode(true);
@@ -193,10 +203,12 @@ function addStep(){
     document.getElementById("stepDescriptions").appendChild(cln);
 };
 
+// removes the latest step text box
 function removeStep(){
     document.getElementById("stepDescriptions").lastChild.remove();
 };
 
+// clones the hazard table and add the clone to the screen
 function addHazard(){
     if(currentNumHazards == 0){
         document.getElementById("hazard1").style.display = "table";
@@ -218,6 +230,7 @@ function addHazard(){
 
         cln.getElementsByClassName("hazardConsequences")[0].value = "";
 
+        // radio buttons are more complicated because they need IDs and class names
         var notLikely = cln.getElementsByClassName("notLikely1")[0];
         notLikely.id = "notLikely"+currentNumHazards;
         notLikely.classList.remove("notLikely1");
@@ -290,6 +303,7 @@ function addHazard(){
         extremeRiskLabel.classList.add("extremeRisk"+currentNumHazards+"Label");
         extremeRiskLabel.htmlFor = "extremeRisk"+currentNumHazards;
 
+        // remove all extra controls and clear value of the first one
         var controlInputs = cln.getElementsByClassName("controlInputs1")[0];
         var controlToKeep = cln.getElementsByClassName("controlInputs")[0];
         controlToKeep.value = "";
@@ -299,6 +313,7 @@ function addHazard(){
         controlInputs.classList.remove("controlInputs1");
         controlInputs.classList.add("controlInputs"+currentNumHazards);
 
+        // the add and remove controls method calls contain parameters that need to be changed
         var addControl = cln.getElementsByClassName("addControl1")[0];
         addControl.setAttribute( "onclick", "addControl(" + currentNumHazards + ");");
         addControl.classList.remove("addControl1")
@@ -309,11 +324,12 @@ function addHazard(){
         removeControl.classList.remove("removeControl1")
         removeControl.classList.add("removeControl"+currentNumHazards);
 
+        // add the clone to the screen
         document.getElementById("currentHazards").appendChild(cln);
     }
-    
 };
 
+// removes the last instance of the hazard table. if it's the first one, hide it
 function removeHazard(){
     if(currentNumHazards>1){
         currentNumHazards = currentNumHazards-1;
@@ -326,6 +342,7 @@ function removeHazard(){
     }
 };
 
+// clones the control text box and add the clone to the given hazard table 
 function addControl(hazardNum){
     var itm = document.getElementById("controlInputs"+hazardNum).getElementsByClassName("controlInputs")[0];
     var cln = itm.cloneNode(true);
@@ -334,6 +351,7 @@ function addControl(hazardNum){
     document.getElementById("controlInputs"+hazardNum).appendChild(cln);
 };
 
+// removes the last intance of the control text box from the given data table
 function removeControl(hazardNum){
     if(document.getElementById("controlInputs"+hazardNum).childElementCount > 1){
         document.getElementById("controlInputs"+hazardNum).lastChild.remove();
@@ -359,7 +377,7 @@ const app = new Vue({
             body: raw,
             redirect: 'follow'
             };
-
+            // this URL should be changed after local testing
             fetch("http://localhost:3000/jsas", requestOptions)
             .then(response => { 
                 if(response.ok){

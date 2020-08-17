@@ -5,7 +5,8 @@ var express = require('express'),
   JSA = require('./api/models/jsaModels'), //created model loading here
   bodyParser = require('body-parser');
 
-  // remove after testing!
+  // this allows to test with both client and server running on the same machine
+  // remove after testing, as it exposes the server to cross-site scripting!
   var cors = require('cors');
   app.use(cors());
   app.use(function(req, res, next) {
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 var routes = require('./api/routes/jsaRoutes'); //importing route
 routes(app); //register the route
 
+// gives friendlier error messages on 404
 app.use(function(req, res) {
   res.status(404).send({url: req.originalUrl + ' not found'})
 });

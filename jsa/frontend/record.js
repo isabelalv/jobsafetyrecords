@@ -5,6 +5,7 @@ const app = new Vue({
         steps: [],
         recordTitle: '',
     },
+    // gathers data from the database given the record ID passed in the URL
     beforeCreate: function() {
         this.responseAvailable = false;
         var record_id = "";
@@ -14,6 +15,7 @@ const app = new Vue({
             alert("Invalid record");
             window.location.href = 'home.html';
         }
+            // this URL should be changed after local testing
             fetch("http://localhost:3000/jsa/" + record_id, {
                 "method": "GET",
                 "headers": {
@@ -38,6 +40,7 @@ const app = new Vue({
             });
     },
     methods: {
+        // deletes the on-page record from the database
         deleteRecord: function (event) {
             var record_id = "";
             if (window.location.toString().includes("id=")){
@@ -50,7 +53,7 @@ const app = new Vue({
                 method: 'DELETE',
                 redirect: 'follow'
                 };
-                
+                // this URL should be changed after local testing
                 fetch("http://localhost:3000/jsa/" + record_id, requestOptions)
                 .then(response => response.text())
                 .then(result => console.log(result))
