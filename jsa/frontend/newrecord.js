@@ -138,7 +138,7 @@ function saveCurrentHazards(stepIndex){
         document.getElementById("hazard"+x).remove();
     }
     document.getElementById("hazard1").style.display = "none";
-    alert(JSON.stringify(jsa));
+    // alert(JSON.stringify(jsa));
 };
 
 function validateHazards(){
@@ -339,3 +339,42 @@ function removeControl(hazardNum){
         document.getElementById("controlInputs"+hazardNum).lastChild.remove();
     }
 };
+
+// VueJS Code
+const app = new Vue({
+    el: '#submit',
+    // define methods under the `methods` object
+    methods: {
+        submit: function (event) {
+            console.log(JSON.stringify(jsa));
+            // const requestOptions = {
+            //     method: "POST",
+            //     headers: { "Content-Type": "application/json" },
+            //     body: jsa
+            // };
+            // fetch("http://localhost:3000/jsas/", requestOptions)
+            //     .then(response => response.json())
+            //     .then(data => (this.recordId = data.id));
+
+            // alert(this.recordId);
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify(jsa);
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch("http://localhost:3000/jsas", requestOptions)
+            // .then(response => response.text())
+            // .then(result => console.log(result))
+            .then(response => window.location.href = "record.html?id=" + response.id)
+            .catch(error => console.log('error', error));
+            
+        }
+    }
+});

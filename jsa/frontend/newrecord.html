@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body class="is-preload" onload="loadSections();">
 
@@ -170,14 +171,11 @@
 
 										<div class="col-12">
 											<ul class="actions">
-												<li><a class="button">Submit</a></li>
+												<li v-on:click="submit"><a class="button">Submit</a></li>
 											</ul>
 										</div>
 									</div>
-									
-
 								</form>
-								
 							</div>
 						</div>
 					</section>

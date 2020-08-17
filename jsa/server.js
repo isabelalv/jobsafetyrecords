@@ -6,20 +6,20 @@ var express = require('express'),
   bodyParser = require('body-parser');
 
   // remove after testing!
+  var cors = require('cors');
+  app.use(cors());
   app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/JSAdb'); 
 
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
 
 var routes = require('./api/routes/jsaRoutes'); //importing route
 routes(app); //register the route
@@ -29,6 +29,5 @@ app.use(function(req, res) {
 });
 
 app.listen(port);
-
 
 console.log('JSA Records Library RESTful API server started on: ' + port);
