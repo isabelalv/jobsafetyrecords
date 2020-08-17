@@ -1,32 +1,26 @@
-// var app = new Vue({ 
-//     el: '#recordTitle',
-//     data: {
-//         recordTitle: '0001 - Installing a gas stove'
-//     }
-// });
-
 const app = new Vue({
-
-    el: '#main',
-   
+    el: '#recordContent',
     data: {
-
-        result: "",
         responseAvailable: false,
-
+        steps: [],
+        recordTitle: '',
     },
-
-    methods: {
-
-        fetchAPIData( ) { 
-            this.responseAvailable = false;
-
-            fetch("https://jokes-database.p.rapidapi.com/", {
+    // gathers data from the database given the record ID passed in the URL
+    beforeCreate: function() {
+        this.responseAvailable = false;
+        var record_id = "";
+        if (window.location.toString().includes("id=")){
+            record_id = window.location.toString().split("id=")[1];
+        }else{
+            alert("Invalid record");
+            window.location.href = 'home.html';
+        }
+            // this URL should be changed after local testing
+            fetch("http://localhost:3000/jsa/" + record_id, {
                 "method": "GET",
-                // "headers": {
-                //     "x-rapidapi-host": "jokes-database.p.rapidapi.com",
-                //     "x-rapidapi-key": this.apiKey
-                // }
+                "headers": {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                }
             })
             .then(response => { 
                 if(response.ok){
@@ -36,13 +30,36 @@ const app = new Vue({
                 }                
             })
             .then(response => {
-                this.result = response.body; 
+
                 this.responseAvailable = true;
+                this.steps = response.steps;
+                this.recordTitle = response.activity;
             })
             .catch(err => {
                 console.log(err);
             });
+    },
+    methods: {
+        // deletes the on-page record from the database
+        deleteRecord: function (event) {
+            var record_id = "";
+            if (window.location.toString().includes("id=")){
+                record_id = window.location.toString().split("id=")[1];
+            }else{
+                alert("Invalid record");
+                window.location.href = 'home.html';
+            }
+            var requestOptions = {
+                method: 'DELETE',
+                redirect: 'follow'
+                };
+                // this URL should be changed after local testing
+                fetch("http://localhost:3000/jsa/" + record_id, requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
+
+                window.location.href = 'home.html';
         }
     }
-
-})
+});

@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>JSA Library</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<span class="logo"><a href="home.html">Job Safety Analysis Library</a></span>
+					</header>
+
+					<section class="wrapper" >
+						<div class="inner">
+							<div class="content">
+								<ul class="actions">
+									<li><a href="newrecord.html" class="button">New Record</a></li>
+								</ul>
+							</div>
+						</div>
+					</section>
+
+					<div  id="recordList">
+						<section class="wrapper" v-for="record in recordList">
+							<div class="inner">
+								<div class="content">
+									<header>
+										<h4>{{record.activity}}</h4>
+									</header>
+									<ol>
+										<li v-for="step in record.steps"><p>{{step.description}}</p></li>
+									</ol>
+									<p><a v-bind:href="'record.html?id=' + record._id">View details</a></p>
+									<hr>
+								</div>
+							</div>
+						</section>
+					</div  >
+					
+
+				<!-- Copyright -->
+					<section class="wrapper style2 copyright">
+						<div class="inner">
+							&copy; JSA Library. All rights reserved.
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="home.js"></script>
+
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

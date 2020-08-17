@@ -45,10 +45,6 @@ var Hazard = new Schema({
 module.exports = mongoose.model('Hazard', Hazard);
 
 var Step = new Schema({
-    step_number: {
-        type: Number,
-        required: 'Step number is required'
-    },
     description: {
         type: String,
         required: 'Step description is required'
@@ -65,15 +61,10 @@ var JSA = new Schema({
         type: String,
         required: 'Activity name is required'
     },
-    // num_views: {
-    //     type: Number,
-    //     required: 'Number of views is required',
-    //     default: 0
-    // },
-    // steps: {
-    //     type: [Step],
-    //     required: 'Set of steps is required'
-    // }
+    steps: {
+        type: [Step],
+        required: 'Set of steps is required'
+    }
 });
 
 module.exports = mongoose.model('JSA', JSA);

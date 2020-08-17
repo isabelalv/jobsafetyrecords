@@ -5,6 +5,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
+		<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	</head>
 	<body class="is-preload">
 
@@ -13,102 +14,70 @@
 
 				<!-- Header -->
 					<header id="header">
-						<span class="logo"><a href="index.html">Job Safety Analysis Library</a></span>
+            <span class="logo"><a href="home.html">Job Safety Analysis Library</a></span>
 					</header>
 
 					<section class="wrapper" >
 						<div class="inner" id="recordContent" >
 							<div class="content">
 								<header>
-									<h2 id="recordTitle">{{ recordTitle }}</h2>
+									<h2>{{ recordTitle }}</h2>
 								</header>
-								<div>
-									<h4>1. This is the first step</h4>
-									<table class="alt">
-										<thead>
-											<tr>
-												<th>Hazard 1 description</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Environment</td>
-												<td>this is the hazard environment</td>
-											</tr>
-											<tr>
-												<td>Controls</td>
-												<td>
-													<ul>
-														<li>first control</li>
-														<li>second control</li>
-													</ul>
-												</td>
-											</tr>
-											<tr>
-												<td>Description</td>
-												<td>this is the hazard description</td>
-											</tr>
-										</tbody>
-									</table>
+								<div v-for="(step,index) in steps">
+									<h4 >{{index+1}}. {{step.description}}</h4>
+									<div v-for="hazard in step.hazards">
+										<table class="alt">
+											<tbody>
+												<tr>
+													<td><strong>Hazard Description</strong></td>
+													<td><strong>{{hazard.title}}</strong></td>
+												</tr>
+												<tr>
+													<td>Environment</td>
+													<td>{{hazard.environment}}</td>
+												</tr>
+												<tr>
+													<td>Exposure</td>
+													<td>{{hazard.exposure}}</td>
+												</tr>
+												<tr>
+													<td>Trigger</td>
+													<td>{{hazard.trigger}}</td>
+												</tr>
+												<tr>
+													<td>Consequences</td>
+													<td>{{hazard.consequence}}</td>
+												</tr>
+												<tr>
+													<td>Likelihood</td>
+													<td>{{hazard.likelihood[0]}}</td>
+												</tr>
+												<tr>
+													<td>Risk Level</td>
+													<td>{{hazard.risk_level[0]}}</td>
+												</tr>
+												<tr>
+													<td>Controls</td>
+													<td>
+														<ul>
+															<li v-for="control in hazard.controls">
+																{{control}}
+															</li>
+														</ul>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
 
 									<hr>
 								</div>
-
-								<div>
-									<h4>2. This is the second step</h4>
-									<table class="alt">
-										<thead>
-											<tr>
-												<th>Hazard 1 description</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Environment</td>
-												<td>this is the hazard environment</td>
-											</tr>
-											<tr>
-												<td>Controls</td>
-												<td>
-													<ul>
-														<li>first control</li>
-														<li>second control</li>
-													</ul>
-												</td>
-											</tr>
-											<tr>
-												<td>Description</td>
-												<td>this is the hazard description</td>
-											</tr>
-										</tbody>
-									</table>
-									<table class="alt">
-										<thead>
-											<tr>
-												<th>Hazard 2 description</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td>Environment</td>
-												<td>this is the hazard environment</td>
-											</tr>
-											<tr>
-												<td>Controls</td>
-												<td>
-													<ul>
-														<li>first control</li>
-														<li>second control</li>
-													</ul>
-												</td>
-											</tr>
-											
-										</tbody>
-									</table>
-
-									<hr>
+								<div class="col-12">
+									<ul class="actions" >
+										<li v-on:click="deleteRecord"><a class="button">Delete Record</a></li>
+									</ul>
+									<hr/>
 								</div>
-								
 							</div>
 						</div>
 					</section>
@@ -125,7 +94,6 @@
 		<!-- Scripts -->
 			<script src="record.js"></script>
 			
-			<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/jquery.scrollex.min.js"></script>
 			<script src="assets/js/jquery.scrolly.min.js"></script>
