@@ -131,8 +131,9 @@ function saveCurrentHazards(stepIndex){
         controlToKeep.value = "";
         controlInputs.innerHTML = "";//removes all child nodes
         controlInputs.appendChild(controlToKeep);
-    }
-    jsa.steps[stepIndex].hazards = hazardToSave;
+
+        jsa.steps[stepIndex].hazards.push(hazardToSave);
+    }   
 
     for (let x = 2; x <= currentNumHazards; x++) {
         document.getElementById("hazard"+x).remove();
@@ -342,10 +343,11 @@ function removeControl(hazardNum){
 // VueJS Code
 const app = new Vue({
     el: '#submit',
-    // define methods under the `methods` object
+    data: {
+        recordID: 0
+    },
     methods: {
         submit: function (event) {
-            // console.log(JSON.stringify(jsa));
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 
@@ -367,7 +369,8 @@ const app = new Vue({
                 }                
             })
             .then(response => {
-                // window.location.href = "record.html?id=" + response._id;
+                this.recordID = response._id;
+                window.location.href = "record.html?id=" + this.recordID;
             })
             .catch(err => {
                 console.log(err);
