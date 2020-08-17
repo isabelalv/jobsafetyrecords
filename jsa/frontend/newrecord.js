@@ -345,7 +345,7 @@ const app = new Vue({
     // define methods under the `methods` object
     methods: {
         submit: function (event) {
-            console.log(JSON.stringify(jsa));
+            // console.log(JSON.stringify(jsa));
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
 

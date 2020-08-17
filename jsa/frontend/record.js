@@ -37,5 +37,26 @@ const app = new Vue({
                 console.log(err);
             });
     },
+    methods: {
+        deleteRecord: function (event) {
+            var record_id = "";
+            if (window.location.toString().includes("id=")){
+                record_id = window.location.toString().split("id=")[1];
+            }else{
+                alert("Invalid record");
+                window.location.href = 'home.html';
+            }
+            var requestOptions = {
+                method: 'DELETE',
+                redirect: 'follow'
+                };
+                
+                fetch("http://localhost:3000/jsa/" + record_id, requestOptions)
+                .then(response => response.text())
+                .then(result => console.log(result))
+                .catch(error => console.log('error', error));
 
+                window.location.href = 'home.html';
+        }
+    }
 });
