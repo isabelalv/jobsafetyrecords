@@ -1,15 +1,15 @@
 <template>
     <div  id="recordList">
-        <section class="wrapper" v-for="record in recordList">
+        <section class="wrapper" v-for="jsa in jsas" v-bind:key="jsa._id">
             <div class="inner">
                 <div class="content">
                     <header>
-                        <h4>{{record.activity}}</h4>
+                        <h4>{{jsa.activity}}</h4>
                     </header>
                     <ol>
-                        <li v-for="step in record.steps"><p>{{step.description}}</p></li>
+                        <li v-for="step in jsa.steps" v-bind:key="step"><p>{{step.description}}</p></li>
                     </ol>
-                    <p><a v-bind:href="'record.html?id=' + record._id">View details</a></p>
+                    <p><a v-bind:href="jsa._id">View details</a></p>
                     <hr>
                 </div>
             </div>
@@ -26,18 +26,8 @@ export default {
       jsas: []
     };
   },
-//   methods: {
-//     async onDestroy(id) {
-//       const sure = window.confirm('Are you sure?');
-//       if (!sure) return;
-//       await api.deletetask(id);
-//       this.flash('task deleted sucessfully!', 'success');
-//       const newtasks = this.tasks.filter(task => task._id !== id);
-//       this.tasks = newtasks;
-//     }
-//   },
   async mounted() {
-    this.records = await api.getrecords();
+    this.jsas = await api.getrecords();
   }
 };
 </script>

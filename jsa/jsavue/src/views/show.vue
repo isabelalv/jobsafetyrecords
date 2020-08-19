@@ -74,6 +74,16 @@ export default {
       record: ''
     };
   },
+  methods: {
+    async onDestroy(id) {
+      const sure = window.confirm('Are you sure?');
+      if (!sure) return;
+      await api.deletetask(id);
+      this.flash('task deleted sucessfully!', 'success');
+      const newtasks = this.tasks.filter(task => task._id !== id);
+      this.tasks = newtasks;
+    }
+  },
   async mounted() {
     this.record = await api.getrecord(this.$route.params.id);
   }
