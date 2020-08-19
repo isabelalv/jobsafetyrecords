@@ -1,28 +1,45 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<span class="logo"><a href="jsas/">Job Safety Analysis Library</a></span>
+					</header>
+          
+          <!-- <div class="ui text container"> -->
+            <!-- <div class="ui one column grid"> -->
+              <!-- <div class="column"> -->
+                <router-view />
+              <!-- </div> -->
+            <!-- </div> -->
+          <!-- </div> -->
+
+				<!-- Copyright -->
+					<section class="wrapper style2 copyright">
+						<div class="inner">
+							&copy; JSA Library. All rights reserved.
+						</div>
+					</section>
+
+			</div>
+
+    <script type="application/javascript" defer src="assets/js/jquery.min.js"></script>
+    <script type="application/javascript" defer src="assets/js/jquery.scrollex.min.js"></script>
+    <script type="application/javascript" defer src="assets/js/jquery.scrolly.min.js"></script>
+    <script type="application/javascript" defer src="assets/js/browser.min.js"></script>
+    <script type="application/javascript" defer src="assets/js/breakpoints.min.js"></script>
+    <script type="application/javascript" defer src="assets/js/util.js"></script>
+    <script type="application/javascript" defer src="assets/js/main.js"></script>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+  name: 'app'
+};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import 'assets/css/main.css';
 </style>
