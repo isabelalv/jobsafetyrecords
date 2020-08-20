@@ -1,4 +1,14 @@
 <template>
+  <div>
+    <section class="wrapper" >
+      <div class="inner">
+        <div class="content">
+          <ul class="actions">
+            <router-link :to="`/jsas/new`"><li><p class="button">New Record</p></li></router-link>
+          </ul>
+        </div>
+      </div>
+    </section>
     <div  id="recordList">
         <section class="wrapper" v-for="jsa in jsas" v-bind:key="jsa._id">
             <div class="inner">
@@ -15,6 +25,7 @@
             </div>
         </section>
     </div  >
+  </div>
 </template>
 
 <script>
