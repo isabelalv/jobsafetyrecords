@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import jsaForm from '../components/jsaForm.vue';
+import jsaForm from '../components/JSAForm.vue';
 import { api } from '../helpers/helpers';
 export default {
   name: 'new-jsa',

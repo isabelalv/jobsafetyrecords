@@ -4,16 +4,10 @@
 
 				<!-- Header -->
 					<header id="header">
-						<span class="logo"><a href="jsas/">Job Safety Analysis Library</a></span>
+						<span class="logo"><router-link to="/" class="item">Job Safety Analysis Library</router-link></span>
 					</header>
           
-          <!-- <div class="ui text container"> -->
-            <!-- <div class="ui one column grid"> -->
-              <!-- <div class="column"> -->
-                <router-view />
-              <!-- </div> -->
-            <!-- </div> -->
-          <!-- </div> -->
+          <router-view />
 
 				<!-- Copyright -->
 					<section class="wrapper style2 copyright">

@@ -3,11 +3,11 @@
         <div class="inner" id="recordContent" >
             <div class="content">
                 <header>
-                    <h2>{{ recordTitle }}</h2>
+                    <h2>{{ record.activity }}</h2>
                 </header>
-                <div v-for="(step,index) in steps">
+                <div v-for="(step,index) in record.steps" v-bind:key="step">
                     <h4 >{{index+1}}. {{step.description}}</h4>
-                    <div v-for="hazard in step.hazards">
+                    <div v-for="hazard in step.hazards" v-bind:key="hazard">
                         <table class="alt">
                             <tbody>
                                 <tr>
@@ -42,7 +42,7 @@
                                     <td>Controls</td>
                                     <td>
                                         <ul>
-                                            <li v-for="control in hazard.controls">
+                                            <li v-for="control in hazard.controls" v-bind:key="control">
                                                 {{control}}
                                             </li>
                                         </ul>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-12">
                     <ul class="actions" >
-                        <li v-on:click="deleteRecord"><a class="button">Delete Record</a></li>
+                        <li v-on:click="onDestroy(record._id)"><a class="button">Delete Record</a></li>
                     </ul>
                     <hr/>
                 </div>
@@ -78,10 +78,9 @@ export default {
     async onDestroy(id) {
       const sure = window.confirm('Are you sure?');
       if (!sure) return;
-      await api.deletetask(id);
-      this.flash('task deleted sucessfully!', 'success');
-      const newtasks = this.tasks.filter(task => task._id !== id);
-      this.tasks = newtasks;
+      await api.deleterecord(id);
+      this.flash('record deleted sucessfully!', 'success');
+      this.$router.push('/');
     }
   },
   async mounted() {

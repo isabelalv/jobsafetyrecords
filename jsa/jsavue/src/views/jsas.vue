@@ -9,7 +9,7 @@
                     <ol>
                         <li v-for="step in jsa.steps" v-bind:key="step"><p>{{step.description}}</p></li>
                     </ol>
-                    <p><a v-bind:href="jsa._id">View details</a></p>
+                    <p><router-link :to="`/jsas/${jsa._id}`">View Details</router-link></p>
                     <hr>
                 </div>
             </div>
