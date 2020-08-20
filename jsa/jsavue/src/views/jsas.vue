@@ -17,7 +17,7 @@
                         <h4>{{jsa.activity}}</h4>
                     </header>
                     <ol>
-                        <li v-for="step in jsa.steps" v-bind:key="step"><p>{{step.description}}</p></li>
+                        <li v-for="(step, index) in jsa.steps" v-bind:key="index"><p>{{step.description}}</p></li>
                     </ol>
                     <p><router-link :to="`/jsas/${jsa._id}`">View Details</router-link></p>
                     <hr>

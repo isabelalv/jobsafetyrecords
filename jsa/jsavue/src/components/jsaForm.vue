@@ -18,86 +18,90 @@
                         <div class="row gtr-uniform" >
                             <h4 style="margin-bottom: 0;">Steps</h4>
                             <div class="col-12 col-12-xsmall">
-                                <p style="margin-bottom: 1%;" ><strong>Step Description</strong></p>
-                                <div v-for="(step, index) in jsa.steps" v-bind:key="index" style="margin-bottom: 1%;">
-                                    <input type="text" value="" placeholder="Step Description" v-model="jsa.steps[index].description"/>
+                                <div v-for="(step, stepIndex) in jsa.steps" v-bind:key="stepIndex" style="margin-bottom: 1%;">
+                                    <p style="margin-bottom: 1%;" ><strong>Step Description</strong></p>
+                                    <input type="text" value="" placeholder="Step Description" v-model="jsa.steps[stepIndex].description"/>
+
+                                    <div v-for="(hazard, hazardIndex) in step.hazards" v-bind:key="hazardIndex">
+                                        <table class="alt" style="margin-left: 8%; margin-top: 1%; width:90%">
+                                            <tbody>
+                                                <tr>
+                                                    <td><strong>Hazard Description</strong></td>
+                                                    <td><input type="text" value="" placeholder="Hazard Description" v-model="jsa.steps[stepIndex].hazards[hazardIndex].title"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Environment</td>
+                                                    <td><input type="text" value="" placeholder="Environment" v-model="jsa.steps[stepIndex].hazards[hazardIndex].environment"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Exposure</td>
+                                                    <td><input type="text" value="" placeholder="Exposure" v-model="jsa.steps[stepIndex].hazards[hazardIndex].exposure"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Trigger</td>
+                                                    <td><input type="text" value="" placeholder="Trigger" v-model="jsa.steps[stepIndex].hazards[hazardIndex].trigger"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Consequences</td>
+                                                    <td><input type="text" value="" placeholder="Consequences" v-model="jsa.steps[stepIndex].hazards[hazardIndex].consequences"/></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Likelihood</td>
+                                                    <td>
+                                                        <div class="col-4 col-12-small">
+                                                            <input type="radio" id="notLikely" name="likelihood" value="Not likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood"/>
+                                                            <label for="notLikely">Not likely</label>
+                                                        </div>
+                                                        <div class="col-4 col-12-small">
+                                                            <input type="radio" id="somewhatLikely" name="likelihood" value="Somewhat likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" />
+                                                            <label for="somewhatLikely1">Somewhat likely</label>
+                                                        </div>
+                                                        <div class="col-4 col-12-small">
+                                                            <input type="radio" id="veryLikely" name="likelihood" value="Very likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" >
+                                                            <label for="veryLikely1">Very likely</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Risk Level</td>
+                                                    <td>
+                                                        <div class="col-4 col-12-small">
+                                                            <input type="radio" id="almostNoRisk" name="risk" value="Almost no risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
+                                                            <label for="almostNoRisk">Almost no risk</label>
+                                                        </div>
+                                                        <div class="col-4 col-12-small">
+                                                            <input type="radio" id="manageableRisk" name="risk" value="Manageable risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
+                                                            <label for="manageableRisk">Manageable risk</label>
+                                                        </div>
+                                                        <div class="col-4 col-12-small">
+                                                            <input type="radio" id="extremeRisk" name="risk" value="Extreme risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level">
+                                                            <label for="extremeRisk">Extreme risk</label>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Controls</td>
+                                                    <td>
+                                                        <div>
+                                                            <input type="text" value="" placeholder="Control Description" />
+                                                        </div>
+                                                        <ul class="actions">
+                                                            <li><a class="button">Add Control</a></li>
+                                                            <li><a class="button">Remove Control</a></li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <ul class="actions" style="margin-left: 8%; margin-top:2%;">
+                                        <li><a class="button" v-on:click="addHazard(stepIndex)">Add Hazard</a></li>
+                                        <li><a class="button" v-on:click="removeHazard(stepIndex)">Remove Hazard</a></li>
+                                    </ul>
+
+                                    <hr/>
                                 </div>
-
-                                <!-- <table class="alt" style="margin-left: 8%; margin-top: 1%; width:90%">
-                                    <tbody>
-                                        <tr>
-                                            <td><strong>Hazard Description</strong></td>
-                                            <td><input type="text" value="" placeholder="Hazard Description" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Environment</td>
-                                            <td><input type="text" value="" placeholder="Environment" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Exposure</td>
-                                            <td><input type="text" value="" placeholder="Exposure" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Trigger</td>
-                                            <td><input type="text" value="" placeholder="Trigger" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Consequences</td>
-                                            <td><input type="text" value="" placeholder="Consequences" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Likelihood</td>
-                                            <td>
-                                                <div class="col-4 col-12-small">
-                                                    <input type="radio" id="notLikely" name="likelihood" value="Not likely" style="display: none;" >
-                                                    <label for="notLikely">Not likely</label>
-                                                </div>
-                                                <div class="col-4 col-12-small">
-                                                    <input type="radio" id="somewhatLikely" name="likelihood" value="Somewhat likely" style="display: none;" >
-                                                    <label for="somewhatLikely1">Somewhat likely</label>
-                                                </div>
-                                                <div class="col-4 col-12-small">
-                                                    <input type="radio" id="veryLikely" name="likelihood" value="Very likely" style="display: none;" >
-                                                    <label for="veryLikely1">Very likely</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Risk Level</td>
-                                            <td>
-                                                <div class="col-4 col-12-small">
-                                                    <input type="radio" id="almostNoRisk" name="risk" value="Almost no risk" style="display: none;" >
-                                                    <label for="almostNoRisk">Almost no risk</label>
-                                                </div>
-                                                <div class="col-4 col-12-small">
-                                                    <input type="radio" id="manageableRisk" name="risk" value="Manageable risk" style="display: none;" >
-                                                    <label for="manageableRisk">Manageable risk</label>
-                                                </div>
-                                                <div class="col-4 col-12-small">
-                                                    <input type="radio" id="extremeRisk" name="risk" value="Extreme risk" style="display: none;" >
-                                                    <label for="extremeRisk">Extreme risk</label>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Controls</td>
-                                            <td>
-                                                <div>
-                                                    <input type="text" value="" placeholder="Control Description" />
-                                                </div>
-                                                <ul class="actions">
-                                                    <li><a class="button">Add Control</a></li>
-                                                    <li><a class="button">Remove Control</a></li>
-                                                </ul>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> -->
-
-                                <!-- <ul class="actions" style="margin-left: 8%;">
-                                    <li><a class="button">Add Hazard</a></li>
-                                    <li><a class="button">Remove Hazard</a></li>
-                                </ul> -->
                             </div>
                         </div>
                         <div class="col-12 col-12-xsmall">
@@ -134,7 +138,8 @@ export default {
                     activity: '',
                     steps: [
                         {
-                            description: ''
+                            description: '',
+                            hazards: []
                         }
                     ]
                 };
@@ -163,6 +168,22 @@ export default {
             if(this.jsa.steps.length > 1){
                 Vue.delete(this.jsa.steps, this.jsa.steps.length-1);
             }            
+        },
+        addHazard: function(stepIndex) {
+            this.jsa.steps[stepIndex].hazards.push(Vue.util.extend({}, {
+                title: '',
+                environment: '',
+                exposure: '',
+                trigger: '',
+                consequence: '',
+                likelihood: '',
+                risk_level: '',
+                controls: ['']
+            }));
+        },
+        removeHazard: function(stepIndex) {
+            Vue.delete(this.jsa.steps[stepIndex].hazards, this.jsa.steps[stepIndex].hazards.length-1);
+            window.scrollTo(0, 0);
         }
     }
 };
