@@ -23,22 +23,54 @@ For more information, consult this booklet https://www.osha.gov/Publications/osh
 
 ### Installation instructions:
 
+We recommend that for this installation you use 4 different console windows or sessions and keep them all open. We will refer to them as follows:
+
+* your "working console"
+* your Node JS console
+* your Mongo DB console
+* your Vue JS console 
+
+__Using your "working console":__
+
+(installing and setting up Node JS)
 1. Install Node JS on your machine (https://nodejs.org/en/download/) 
 2. Execute the following command: `npm install --save-dev nodemon`
 3. Execute the following command: `npm install express --save`
 4. Execute the following command: `npm install mongoose --save`
 5. Execute the following command: `npm install cors --save`
 6. Clone the present repository onto your machine.
-7. Navigate to the `jsa` folder inside the cloned repository.
+
 ----
-8. Install MongoDB (https://www.mongodb.com/try/download/community)
-9. Using the Compass utility (which was installed in step 8), create a new database called `JSAdb`.
-10. Inside the new database, create a new collection called `jsas`.
-11. In a command prompt or other console window, run the command `mongod`. If you are using Windows, you may need to do one of the following:
-    1. Modify your PATH variable (if it was not modified by the installer), to include the path to the MongoDB `bin` folder. This will be in the location where you chose to install MongoDB.
-    2. Change your working directory to be the MongoDB `bin` directory, and run the `mongod` command from there. If you do this, you will not need to add the location to the PATH.
-12. Run the `mongo` command. Leave the console window open.
-13. In a separate console window, navigate to the `jsa` folder under the cloned repository.
-14. Run `npm run start` to start your Node JS server. You should get a couple warnings, but no errors.
+(installing and setting up Mongo DB)
+
+7. Install Mongo DB (https://www.mongodb.com/try/download/community)
+8. Using the Compass utility (which was installed in step 8), create a new database called `JSAdb`.
+9. Inside the new database, create a new collection called `jsas`.
+10. In a new command prompt or other console window, run the command `mongod`. If you are using Windows, you may need to do one of the following:
+    1. Modify your PATH variable (if it was not modified by the installer), to include the path to the Mongo DB `bin` folder. This will be in the location where you chose to install Mongo DB.
+    2. Change your working directory to be the Mongo DB `bin` directory, and run the `mongod` command from there. If you do this, you will not need to add the location to the PATH.
+11. You may now close the window you opened in step 11.
+
 ---
-15. At this point, you should be able to open the `home.html` file in the `frontend` directory of the repo with a modern browser of your choice and navigate around the application.
+(installing and setting up Vue JS)
+
+12. Install Vue JS by running this command `npm install -g @vue/cli`.
+13. Execute the following command: `npm i axios semantic-ui-css vue-flash-message`.
+14. Execute the following command: `npm install --save vue-router`.
+
+---
+__Using your Mongo DB console:__
+
+15. Run the `mongo` command. Leave the console window open.
+
+__Using your Node JS console:__
+
+16. Navigate to the `jobsafetyrecords\jsa\` folder under the cloned repository.
+17. Run `npm run start` to start your Node JS server. You should get a couple warnings, but no errors.
+
+__Using your Vue JS console:__
+
+18. Navigate to the `jobsafetyrecords\jsa\jsavue` folder under the cloned repository.
+19. Run `npm run serve` to begin serving your Vue JS frontend.
+---
+20. At this point, you should be able to navigate to http://localhost:8080/ with a modern browser of your choice and be able to use the application.
