@@ -3,11 +3,11 @@
         <div class="inner" id="recordContent" >
             <div class="content">
                 <header>
-                    <h2>{{ record.activity }}</h2>
+                    <h2 style="margin-bottom: 3%">{{ record.activity }}</h2>
                 </header>
-                <div v-for="(step,index) in record.steps" v-bind:key="step">
+                <div v-for="(step,index) in record.steps" v-bind:key="index">
                     <h4 >{{index+1}}. {{step.description}}</h4>
-                    <div v-for="hazard in step.hazards" v-bind:key="hazard">
+                    <div v-for="(hazard, hazardIndex) in step.hazards" v-bind:key="hazardIndex">
                         <table class="alt">
                             <tbody>
                                 <tr>
