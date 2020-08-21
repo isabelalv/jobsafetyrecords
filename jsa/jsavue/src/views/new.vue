@@ -16,7 +16,7 @@ export default {
     createOrUpdate: async function(record) {
       const res = await api.createrecord(record);
       this.flash('record created', 'success');
-      // this.$router.push(`/jsas/${res._id}`);
+      this.$router.push('/jsas/' + res._id);
     }
   }
 };

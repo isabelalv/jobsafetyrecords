@@ -43,22 +43,22 @@
                                                 </tr>
                                                 <tr>
                                                     <td>Consequences</td>
-                                                    <td><input type="text" value="" placeholder="Consequences" v-model="jsa.steps[stepIndex].hazards[hazardIndex].consequences"/></td>
+                                                    <td><input type="text" value="" placeholder="Consequences" v-model="jsa.steps[stepIndex].hazards[hazardIndex].consequence"/></td>
                                                 </tr>
                                                 <tr>
                                                     <td>Likelihood</td>
                                                     <td>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" id="notLikely" name="likelihood" value="Not likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood"/>
-                                                            <label for="notLikely">Not likely</label>
+                                                            <input type="radio" v-bind:id="'notLikely'+stepIndex+hazardIndex" v-bind:name="'likelihood'+stepIndex+hazardIndex" value="Not likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood"/>
+                                                            <label v-bind:for="'notLikely'+stepIndex+hazardIndex">Not likely</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" id="somewhatLikely" name="likelihood" value="Somewhat likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" />
-                                                            <label for="somewhatLikely1">Somewhat likely</label>
+                                                            <input type="radio" v-bind:id="'somewhatLikely'+stepIndex+hazardIndex" v-bind:name="'likelihood'+stepIndex+hazardIndex" value="Somewhat likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" />
+                                                            <label v-bind:for="'somewhatLikely'+stepIndex+hazardIndex">Somewhat likely</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" id="veryLikely" name="likelihood" value="Very likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" >
-                                                            <label for="veryLikely1">Very likely</label>
+                                                            <input type="radio" v-bind:id="'veryLikely'+stepIndex+hazardIndex" v-bind:name="'likelihood'+stepIndex+hazardIndex" value="Very likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" >
+                                                            <label v-bind:for="'veryLikely'+stepIndex+hazardIndex">Very likely</label>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -66,28 +66,28 @@
                                                     <td>Risk Level</td>
                                                     <td>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" id="almostNoRisk" name="risk" value="Almost no risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
-                                                            <label for="almostNoRisk">Almost no risk</label>
+                                                            <input type="radio" v-bind:id="'almostNoRisk'+stepIndex+hazardIndex" v-bind:name="'risk'+stepIndex+hazardIndex" value="Almost no risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
+                                                            <label v-bind:for="'almostNoRisk'+stepIndex+hazardIndex">Almost no risk</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" id="manageableRisk" name="risk" value="Manageable risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
-                                                            <label for="manageableRisk">Manageable risk</label>
+                                                            <input type="radio" v-bind:id="'manageableRisk'+stepIndex+hazardIndex" v-bind:name="'risk'+stepIndex+hazardIndex" value="Manageable risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
+                                                            <label v-bind:for="'manageableRisk'+stepIndex+hazardIndex">Manageable risk</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" id="extremeRisk" name="risk" value="Extreme risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level">
-                                                            <label for="extremeRisk">Extreme risk</label>
+                                                            <input type="radio" v-bind:id="'extremeRisk'+stepIndex+hazardIndex" v-bind:name="'risk'+stepIndex+hazardIndex" value="Extreme risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level">
+                                                            <label v-bind:for="'extremeRisk'+stepIndex+hazardIndex">Extreme risk</label>
                                                         </div>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>Controls</td>
                                                     <td>
-                                                        <div>
-                                                            <input type="text" value="" placeholder="Control Description" />
+                                                        <div v-for="(control, controlIndex) in hazard.controls" v-bind:key="controlIndex">
+                                                            <input type="text" value="" placeholder="Control Description" v-model="jsa.steps[stepIndex].hazards[hazardIndex].controls[controlIndex]"/>
                                                         </div>
                                                         <ul class="actions">
-                                                            <li><a class="button">Add Control</a></li>
-                                                            <li><a class="button">Remove Control</a></li>
+                                                            <li><a class="button" v-on:click="addControl(stepIndex, hazardIndex)">Add Control</a></li>
+                                                            <li><a class="button" v-on:click="removeControl(stepIndex, hazardIndex)">Remove Control</a></li>
                                                         </ul>
                                                     </td>
                                                 </tr>
@@ -146,28 +146,24 @@ export default {
             }
         }
     },
-    data() {
-        return {
-            errorsPresent: false
-        };
-    },
     methods: {
         onSubmit: function() {
-            if (this.jsa.activity === '') {
-                this.errorsPresent = true;
-            } else {
+            var valid = this.validateForm();
+            if(valid){
                 this.$emit('createOrUpdate', this.jsa);
             }
         },
         addStep: function() {
             this.jsa.steps.push(Vue.util.extend({}, {
-                description: ''
+                description: '',
+                hazards: []
             }));
         },
         removeStep: function() {
             if(this.jsa.steps.length > 1){
                 Vue.delete(this.jsa.steps, this.jsa.steps.length-1);
-            }            
+            }
+            window.scrollTo(0, 0);
         },
         addHazard: function(stepIndex) {
             this.jsa.steps[stepIndex].hazards.push(Vue.util.extend({}, {
@@ -184,6 +180,55 @@ export default {
         removeHazard: function(stepIndex) {
             Vue.delete(this.jsa.steps[stepIndex].hazards, this.jsa.steps[stepIndex].hazards.length-1);
             window.scrollTo(0, 0);
+        },
+        addControl: function(stepIndex, hazardIndex){
+            this.jsa.steps[stepIndex].hazards[hazardIndex].controls.push('');
+        },
+        removeControl: function(stepIndex, hazardIndex){
+            Vue.delete(this.jsa.steps[stepIndex].hazards, this.jsa.steps[stepIndex].hazards[hazardIndex].controls.length-1);
+        },
+        validateForm: function(){
+            if (this.jsa.activity === '') {
+                alert("Activity description is required");
+                return false;
+            } 
+            for (let step = 0; step < this.jsa.steps.length; step++) {
+                if (this.jsa.steps[step].description === '') {
+                    alert("A step description is required");
+                    return false;
+                } 
+                for (let hazard = 0; hazard < this.jsa.steps[step].hazards.length; hazard++) {
+                    if (this.jsa.steps[step].hazards[hazard].title === '') {
+                        alert("Hazard description is required");
+                        return false;
+                    }
+                    if (this.jsa.steps[step].hazards[hazard].environment === '') {
+                        alert("Hazard environment is required");
+                        return false;
+                    } 
+                    if (this.jsa.steps[step].hazards[hazard].exposure === '') {
+                        alert("Hazard exposure is required");
+                        return false;
+                    } 
+                    if (this.jsa.steps[step].hazards[hazard].trigger === '') {
+                        alert("Hazard trigger is required");
+                        return false;
+                    } 
+                    if (this.jsa.steps[step].hazards[hazard].consequence === '') {
+                        alert("Hazard consequence is required");
+                        return false;
+                    } 
+                    if (this.jsa.steps[step].hazards[hazard].likelihood === '') {
+                        alert("Hazard likelihood is required");
+                        return false;
+                    } 
+                    if (this.jsa.steps[step].hazards[hazard].risk_level === '') {
+                        alert("Hazard risk is required");
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
     }
 };
