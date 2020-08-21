@@ -8,7 +8,7 @@
 import jsaForm from '../components/JSAForm.vue';
 import { api } from '../helpers/helpers';
 export default {
-  name: 'new-jsa',
+  name: 'new',
   components: {
     'jsa-form': jsaForm
   },

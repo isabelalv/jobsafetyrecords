@@ -57,6 +57,7 @@
                 <div class="col-12">
                     <ul class="actions" >
                         <li v-on:click="onDestroy(record._id)"><a class="button">Delete Record</a></li>
+                        <router-link :to="`/jsas/${record._id}/edit`"><li><a class="button">Edit Record</a></li></router-link>
                     </ul>
                     <hr/>
                 </div>

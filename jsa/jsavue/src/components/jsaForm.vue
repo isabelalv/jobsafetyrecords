@@ -49,16 +49,32 @@
                                                     <td>Likelihood</td>
                                                     <td>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" v-bind:id="'notLikely'+stepIndex+hazardIndex" v-bind:name="'likelihood'+stepIndex+hazardIndex" value="Not likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood"/>
+                                                            <input type="radio" 
+                                                            v-bind:id="'notLikely'+stepIndex+hazardIndex" 
+                                                            v-bind:name="'likelihood'+stepIndex+hazardIndex" 
+                                                            value="Not likely"
+                                                            style="display: none;" 
+                                                            v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood"/>
                                                             <label v-bind:for="'notLikely'+stepIndex+hazardIndex">Not likely</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" v-bind:id="'somewhatLikely'+stepIndex+hazardIndex" v-bind:name="'likelihood'+stepIndex+hazardIndex" value="Somewhat likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" />
+                                                            <input type="radio" 
+                                                            v-bind:id="'somewhatLikely'+stepIndex+hazardIndex" 
+                                                            v-bind:name="'likelihood'+stepIndex+hazardIndex" 
+                                                            value="Somewhat likely"  
+                                                            style="display: none;" 
+                                                            v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" />
                                                             <label v-bind:for="'somewhatLikely'+stepIndex+hazardIndex">Somewhat likely</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" v-bind:id="'veryLikely'+stepIndex+hazardIndex" v-bind:name="'likelihood'+stepIndex+hazardIndex" value="Very likely" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" >
+                                                            <input type="radio" 
+                                                            v-bind:id="'veryLikely'+stepIndex+hazardIndex" 
+                                                            v-bind:name="'likelihood'+stepIndex+hazardIndex" 
+                                                            value="Very likely" 
+                                                            style="display: none;" 
+                                                            v-model="jsa.steps[stepIndex].hazards[hazardIndex].likelihood" >
                                                             <label v-bind:for="'veryLikely'+stepIndex+hazardIndex">Very likely</label>
+                                                            <p>{{jsa.steps[stepIndex].hazards[hazardIndex].likelihood == 'Not likely'}}</p>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -66,15 +82,30 @@
                                                     <td>Risk Level</td>
                                                     <td>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" v-bind:id="'almostNoRisk'+stepIndex+hazardIndex" v-bind:name="'risk'+stepIndex+hazardIndex" value="Almost no risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
+                                                            <input type="radio" 
+                                                            v-bind:id="'almostNoRisk'+stepIndex+hazardIndex" 
+                                                            v-bind:name="'risk'+stepIndex+hazardIndex" 
+                                                            value="Almost no risk" 
+                                                            style="display: none;" 
+                                                            v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
                                                             <label v-bind:for="'almostNoRisk'+stepIndex+hazardIndex">Almost no risk</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" v-bind:id="'manageableRisk'+stepIndex+hazardIndex" v-bind:name="'risk'+stepIndex+hazardIndex" value="Manageable risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
+                                                            <input type="radio" 
+                                                            v-bind:id="'manageableRisk'+stepIndex+hazardIndex" 
+                                                            v-bind:name="'risk'+stepIndex+hazardIndex" 
+                                                            value="Manageable risk" 
+                                                            style="display: none;" 
+                                                            v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level" >
                                                             <label v-bind:for="'manageableRisk'+stepIndex+hazardIndex">Manageable risk</label>
                                                         </div>
                                                         <div class="col-4 col-12-small">
-                                                            <input type="radio" v-bind:id="'extremeRisk'+stepIndex+hazardIndex" v-bind:name="'risk'+stepIndex+hazardIndex" value="Extreme risk" style="display: none;" v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level">
+                                                            <input type="radio" 
+                                                            v-bind:id="'extremeRisk'+stepIndex+hazardIndex" 
+                                                            v-bind:name="'risk'+stepIndex+hazardIndex" 
+                                                            value="Extreme risk" 
+                                                            style="display: none;" 
+                                                            v-model="jsa.steps[stepIndex].hazards[hazardIndex].risk_level">
                                                             <label v-bind:for="'extremeRisk'+stepIndex+hazardIndex">Extreme risk</label>
                                                         </div>
                                                     </td>
@@ -145,6 +176,18 @@ export default {
                 };
             }
         }
+    },
+    data() {
+        var checkboxes = [];
+
+        for (let i = 0; i < this.jsa.steps.length; i++) {
+            for (let j = 0; j < this.jsa.steps[i].hazards.length; j++) {
+                checkboxes.push({'likelihood'+i+j: this.jsa.steps[i].hazards[j].likelihood})
+            }
+        }
+        return {
+            errorsPresent: false,
+        };
     },
     methods: {
         onSubmit: function() {
