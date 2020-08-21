@@ -8,7 +8,7 @@ module.exports = function(app) {
     .post(jsa.create_record);
 
 
-  app.route('/jsa/:recordID')
+  app.route('/jsas/:recordID')
     .get(jsa.read_record)
     .put(jsa.update_record)
     .delete(jsa.delete_record);
